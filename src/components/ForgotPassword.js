@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {Form, Button,Card, Alert} from 'react-bootstrap';
 import {useAuth} from '../context/AuthContext';
 import {Link} from 'react-router-dom';
+import style from './SingUp.module.css';
 
 export default function ForgotPassword() {
     const emailRef = useRef();
@@ -24,17 +25,19 @@ export default function ForgotPassword() {
     }
     return (
         <>
-            <Card>
+            <Card className={style.Card}>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Password Reset</h2>
+                    <h2 className={style.Title}>Password Reset</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     {message && <Alert variant="success">{message}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required/>
+                            {/* <Form.Label>Email</Form.Label> */}
+                            <Form.Control className={style.Input} type="email" ref={emailRef} required placeholder="E-mail"/>
                         </Form.Group>
-                        <Button disabled={loading} className="w-100 text-center mt-2" type="submit"> Reset Password </Button>
+                        <div className={style.Wrapper}>
+                            <Button disabled={loading} className={style.Button} type="submit"> Reset Password </Button>
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>

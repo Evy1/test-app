@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Card} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import {useAuth} from '../context/AuthContext';
-import {Link,useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 export default function Dashboard() {
     const {currentUser, logout} = useAuth();
     const history = useHistory();
-    const [error,setError] = useState('')
+    const [error,setError] = useState('');
     
     async function handleLogout(){
         setError('')
@@ -18,12 +18,8 @@ export default function Dashboard() {
         }
     }
     return (
-        <>
-            <Card>
-                <div className="w-100 text-center mt-2">
-                    <Button variant="link" onClick={handleLogout}>Log Out</Button>
-                </div>
-            </Card>
-        </>
+        <div>
+            <Button variant="link" onClick={handleLogout}>Log Out</Button>
+        </div>
     )
 }
