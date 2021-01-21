@@ -1,0 +1,12 @@
+.Form{
+    width: 100%;
+    padding: 15px;
+}
+.Input{
+    border: none;
+    background-color: #AED6F1 ;
+    color: white;
+    font-style: italic;
+    padding: 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}

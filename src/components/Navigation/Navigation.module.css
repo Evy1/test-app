@@ -1,0 +1,39 @@
+.Header{
+   display: flex;
+   justify-content: space-between;
+   background-color: #3498DB;
+   padding: 20px 40px;
+}
+
+.Link{
+    color: #ffffff !important;
+}
+.Link:hover{
+    text-decoration: none;
+    color: white;
+}
+.MenuLink{
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 15px;
+}
+.LinkWrapper{
+    display: flex;
+    flex-direction: column;
+}
+nav{
+    background-color: #3498DB !important;
+}
+.MenuButton{
+    background-image: url('../../assets/svg/bars.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    background-color: transparent !important;
+    border: none !important;
+}
+.MenuButton:focus{
+    outline: none !important;
+    background-color: transparent !important;
+    border: none !important;
+}

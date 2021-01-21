@@ -7,25 +7,27 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
+import TaskForm from "./TastForm/TaskForm";
+import Home from "./Home/Home";
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center"
-      style={{ minHeight: "100vh" }}
+    <Container fluid 
+      className="p-0"
+      // style={{ minHeight: "100vh" }}
     >
-      <div className="w-100" style={{ minWidth: "400px" }}>
+      <div className="w-100" style={{ minWidth: "300px" }}>
         <Router>
           <AuthProvider>
             <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
+              <PrivateRoute exact path="/" component={Home} />
               <Route path="/singup" component={Singup} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
+              <PrivateRoute path="/task" component={TaskForm} />
             </Switch>
           </AuthProvider>
         </Router>
-        {/* <Singup/> */}
       </div>
     </Container>
   );

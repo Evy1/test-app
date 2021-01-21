@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Form, Button,Card, Alert} from 'react-bootstrap';
+import {Form, Button,Card, Alert, Container} from 'react-bootstrap';
 import {useAuth} from '../context/AuthContext';
 import {Link, useHistory} from 'react-router-dom';
 import style from './SingUp.module.css';
@@ -27,6 +27,7 @@ export default function Login() {
     
     return (
         <>
+        <Container>
             <Card className={style.Card}>
                 <Card.Body>
                     <h2 className={style.Title}>Log In</h2>
@@ -52,6 +53,7 @@ export default function Login() {
             <div className="w-100 text-center mt-2">
                 <Link to="/forgot-password">Forgot Password?</Link>
             </div>
+        </Container>
         </>
     )
 }

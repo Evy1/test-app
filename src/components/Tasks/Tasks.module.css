@@ -1,0 +1,32 @@
+.Card{
+    margin-bottom: 30px;
+}
+.Card:hover{
+    background-color: #3498DB;
+    color: #ffffff;
+}
+.DoneBtn{
+    color: white;
+    background-color: green;
+    margin: 5px;
+    border: 1px solid green;
+}
+.DeleteBtn{
+    color: white;
+    background-color: red;
+    margin: 5px;
+    border: 1px solid red;
+}
+.EditBtn{
+    color: white;
+    background-color: burlywood;
+    margin: 5px;
+    border: 1px solid burlywood;
+}
+h2.PageTitle{
+    padding: 15px;
+    font-size: 25px;
+}
+.TaskTitle{
+    font-size: 20px;
+}

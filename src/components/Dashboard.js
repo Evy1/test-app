@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Container} from 'react-bootstrap';
 import {useAuth} from '../context/AuthContext';
 import {useHistory} from 'react-router-dom';
+import Navigation from './Navigation/LeftNavigation';
+import styles from './Navigation/Navigation.module.css'
+import Tasks from './Tasks/Tasks';
 
 export default function Dashboard() {
     const {currentUser, logout} = useAuth();
@@ -18,8 +21,11 @@ export default function Dashboard() {
         }
     }
     return (
-        <div>
-            <Button variant="link" onClick={handleLogout}>Log Out</Button>
-        </div>
+        <>
+            <div className={styles.Header}>
+                <Navigation/>
+                <Button className={styles.Link} variant="link" onClick={handleLogout}>Log Out</Button>
+            </div>
+        </>
     )
 }
