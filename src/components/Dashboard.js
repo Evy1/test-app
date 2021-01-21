@@ -4,7 +4,6 @@ import {useAuth} from '../context/AuthContext';
 import {useHistory} from 'react-router-dom';
 import Navigation from './Navigation/LeftNavigation';
 import styles from './Navigation/Navigation.module.css'
-import Tasks from './Tasks/Tasks';
 
 export default function Dashboard() {
     const {currentUser, logout} = useAuth();

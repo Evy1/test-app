@@ -1,20 +1,44 @@
-import React from 'react';
+import React,{Component, useState} from 'react';
 import {Card, Container} from 'react-bootstrap';
 import styles from './Tasks.module.css';
-export default function Tasks() {
-    return (
-        <Container>
-        <div className="row d-flex justify-content-center text-center pt-4">
-            <h2 className={styles.PageTitle}>Here are your most recent tasks.....</h2>
-        </div>
-            <div className="row py-4">
-                <div className="col-12 col-md-4">
-                    <Card className={styles.Card}>
+// import instance from '../apis/instance';
+import results from '../results'
+ class Tasks extends Component {
+    state={
+        results: []
+    }
+    componentDidMount(){
+        results.get('/task.json').then(response=>{
+            console.log(response.data)
+            const fetchedResults = [];
+                for(let key in response.data){
+                    fetchedResults.unshift({
+                        ...response.data[key],
+                        id: key,
+                    }
+                    )
+                }
+                this.setState({results: fetchedResults})
+        })
+    }
+
+    render(){
+
+        return (
+            <Container>
+                <div className="row d-flex justify-content-center text-center pt-4">
+                    {this.state.results.map(result=>(
+                        <div className="col-12 col-md-4">
+                        <Card className={styles.Card} key={result.id}>
                         <Card.Body>
-                            <h2 className={styles.TaskTitle}>Task Title</h2>
                             <div>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                {result.date}
                             </div>
+                            <h2 className={styles.TaskTitle}>{result.title}</h2>
+                            <div>
+                                <p>{result.content}</p>
+                            </div>
+                           
                             <div className="d-flex">
                                 <button className={styles.DoneBtn}>Done</button>
                                 <button className={styles.DeleteBtn}>Delete</button>
@@ -22,38 +46,11 @@ export default function Tasks() {
                             </div>
                         </Card.Body>
                     </Card>
+                    </div>
+                    ))}
                 </div>
-                <div className="col-12 col-md-4">
-                    <Card className={styles.Card}>
-                        <Card.Body>
-                            <h2 className={styles.TaskTitle}>Task Title</h2>
-                            <div>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div className="d-flex">
-                                <button className={styles.DoneBtn}>Done</button>
-                                <button className={styles.DeleteBtn}>Delete</button>
-                                <button className={styles.EditBtn}>Edit</button>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </div>
-                <div className="col-12 col-md-4">
-                    <Card className={styles.Card}>
-                        <Card.Body>
-                            <h2 className={styles.TaskTitle}>Task Title</h2>
-                            <div>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div className="d-flex">
-                                <button className={styles.DoneBtn}>Done</button>
-                                <button className={styles.DeleteBtn}>Delete</button>
-                                <button className={styles.EditBtn}>Edit</button>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </div>
-            </div>
-        </Container>
-    )
-}
+            </Container>
+        )
+    }
+    }
+    export default Tasks;
