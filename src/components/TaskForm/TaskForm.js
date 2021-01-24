@@ -1,23 +1,25 @@
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
 import {Form, Button, Container} from 'react-bootstrap';
 import results from '../results';
 import {Link} from 'react-router-dom';
 import Dashboard from '../Dashboard';
 import styles from './TaskForm.module.css';
+import {useAuth} from '../../context/AuthContext'
 
-class TaskForm extends Component{
+function TaskForm(){
 
-    state = {
-        title: '',
-        content: '',
-        date: ''
-    }
-  postHandler = (e) =>{
+    const [title, setTitle] = useState();
+    const [content, setContent] = useState();
+    const [date, setDate] = useState();
+    const {currentUser} = useAuth();
+
+  const postHandler = e =>{
     e.preventDefault();
     const data = {
-        title: this.state.title,
-        content: this.state.content,
-        date: this.state.date
+        title: title,
+        content: content,
+        date: date,
+        user: currentUser.uid
     }
     results.post('/task.json', data).then(response=>{
         console.log(response);
@@ -25,23 +27,8 @@ class TaskForm extends Component{
         console.log(error);
     })
   }
-  taskHandler = ()=>{
-    results.get( '/task.json' )
-    .then( res => {
-        const fetchedOrders = [];
-        for ( let key in res.data ) {
-            fetchedOrders.push( {
-                ...res.data[key],
-                id: key
-            } );
-        }
-      console.log(fetchedOrders)
-    } )
-    .catch( err => {
-        console.log(err)
-    } );
-  }
-    render() {
+
+   
        return(
             <>
             <Dashboard/>
@@ -50,18 +37,18 @@ class TaskForm extends Component{
                     <h2>Add a new task here</h2>
                 </div>
                 <div className="row">
-                    <form onSubmit={this.postHandler} className={styles.Form}>
+                    <form onSubmit={postHandler} className={styles.Form}>
                         <Form.Group id="title" className="d-flex justify-content-center flex-column text-center">
                             <label>Task Title</label>
-                            <input className={styles.Input} type="text"  required placeholder="Title" value={this.state.title} onChange={(e)=> this.setState({title: e.target.value})}/>
+                            <input className={styles.Input} type="text"  required placeholder="Title" value={[title]} onChange={(e)=> setTitle(e.target.value)}/>
                         </Form.Group>
                         <Form.Group id="content" className="d-flex justify-content-center flex-column text-center">
                             <label>Task Content</label>
-                            <textarea className={styles.Input} type="textarea" rows={3} required placeholder="Task" value={this.state.content} onChange={(e)=> this.setState({content: e.target.value})}/>
+                            <textarea className={styles.Input} type="textarea" rows={3} required placeholder="Task" value={[content]} onChange={(e)=> setContent( e.target.value)}/>
                         </Form.Group>
                         <Form.Group id="date" className="d-flex justify-content-center flex-column text-center">
                             <label>Pick a deadline</label>
-                            <input className={styles.Input} type="datetime-local" value={this.state.date} onChange={(e)=> this.setState({date: e.target.value})}></input>
+                            <input className={styles.Input} type="datetime-local" value={[date]} onChange={(e)=> setDate(e.target.value)}></input>
                         </Form.Group>
                         <div>
                             <Button type="submit">Submit</Button>
@@ -73,6 +60,6 @@ class TaskForm extends Component{
             {/* {this.taskHandler()} */}
             </>
        )
-    }
+    
 }
 export default TaskForm;

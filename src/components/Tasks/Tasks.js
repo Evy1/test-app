@@ -1,15 +1,16 @@
-import React,{Component, useState} from 'react';
+import React,{Component, useState, useEffect} from 'react';
 import {Card, Container} from 'react-bootstrap';
 import styles from './Tasks.module.css';
-// import instance from '../apis/instance';
+import {useAuth} from '../../context/AuthContext'
 import results from '../results'
- class Tasks extends Component {
-    state={
-        results: []
-    }
-    componentDidMount(){
+ function Tasks(){
+     const [items, setItems] = useState([]);
+     const {currentUser} = useAuth()
+
+
+    useEffect(()=>{
         results.get('/task.json').then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
             const fetchedResults = [];
                 for(let key in response.data){
                     fetchedResults.unshift({
@@ -18,18 +19,40 @@ import results from '../results'
                     }
                     )
                 }
-                this.setState({results: fetchedResults})
-        })
-    }
 
-    render(){
+                setItems(fetchedResults)
+        })
+        
+     },[])
+    const itemsss = items.map(result=>(
+        <div className="col-12 col-md-4" key={result.id}>
+            <Card className={styles.Card} >
+                <Card.Body>
+                    <div>
+                        {result.date}
+                    </div>
+                    <h2 className={styles.TaskTitle}>{result.title}</h2>
+                    <div>
+                        <p>{result.content}</p>
+                    </div>
+                
+                    <div className="d-flex">
+                        <button className={styles.DoneBtn}>Done</button>
+                        <button className={styles.DeleteBtn}>Delete</button>
+                        <button className={styles.EditBtn}>Edit</button>
+                    </div>
+                </Card.Body>
+            </Card>
+    </div>
+    ))
 
         return (
             <Container>
                 <div className="row d-flex justify-content-center text-center pt-4">
-                    {this.state.results.map(result=>(
-                        <div className="col-12 col-md-4">
-                        <Card className={styles.Card} key={result.id}>
+                    {items.map(result=>(
+                        result.user === currentUser.uid &&
+                        <div className="col-12 col-md-4" key={result.id}>
+                        <Card className={styles.Card} >
                         <Card.Body>
                             <div>
                                 {result.date}
@@ -47,10 +70,9 @@ import results from '../results'
                         </Card.Body>
                     </Card>
                     </div>
-                    ))}
+                    )) }
                 </div>
             </Container>
         )
-    }
-    }
+ }
     export default Tasks;
