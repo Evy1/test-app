@@ -11,7 +11,6 @@ export default function Singup() {
     const {singup} = useAuth();
     const [error,setError] = useState('')
     const [loading ,setLoading] = useState(false)
-    const history = useHistory();
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -22,7 +21,6 @@ export default function Singup() {
             setError('');
             setLoading(true);
             await singup(emailRef.current.value, passwordRef.current.value)
-            history.push('/');
         }catch{
             setError('Failed to create an account')
         }

@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import TaskForm from "./TaskForm/TaskForm";
 import Home from "./Home/Home";
+import View from '../components/View/View'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <PrivateRoute path="/task" component={TaskForm} />
+              <PrivateRoute path="/view" component={View} />
             </Switch>
           </AuthProvider>
         </Router>

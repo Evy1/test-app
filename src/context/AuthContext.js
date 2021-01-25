@@ -43,7 +43,6 @@ export function AuthProvider({children}) {
     }
 
     // console.log(value)
-
     return (
        <AuthContext.Provider value={value}>
            {!loading && children}
