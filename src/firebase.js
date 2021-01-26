@@ -1,3 +1,4 @@
+import * as base from 'firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 

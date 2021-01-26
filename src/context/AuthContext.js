@@ -23,6 +23,7 @@ export function AuthProvider({children}) {
     function resetPassword(email){
         return auth.sendPasswordResetEmail(email)
     }
+   
     
     useEffect(()=>{
         
@@ -42,7 +43,6 @@ export function AuthProvider({children}) {
         loading,
     }
 
-    // console.log(value)
     return (
        <AuthContext.Provider value={value}>
            {!loading && children}

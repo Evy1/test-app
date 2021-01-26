@@ -1,10 +1,11 @@
-import React,{Component, useState} from 'react';
+import React,{useState} from 'react';
 import {Form, Button, Container} from 'react-bootstrap';
 import results from '../results';
 import {Link} from 'react-router-dom';
 import Dashboard from '../Dashboard';
 import styles from './TaskForm.module.css';
-import {useAuth} from '../../context/AuthContext'
+import {useAuth} from '../../context/AuthContext';
+import firebase from '../../firebase'
 
 function TaskForm(){
 
@@ -12,20 +13,28 @@ function TaskForm(){
     const [content, setContent] = useState();
     const [date, setDate] = useState();
     const {currentUser} = useAuth();
+    const [message, setMessage] = useState();
+    const [error, setError] = useState();
 
   const postHandler = e =>{
     e.preventDefault();
-    const data = {
-        title: title,
-        content: content,
-        date: date,
-        user: currentUser.uid
+    const data = { 
+            "title": title,
+            "content": content,
+            "date": date,
+            "user": currentUser.uid,
+            "status": 'pending'
     }
     results.post('/task.json', data).then(response=>{
-        console.log(response);
+        setMessage('Task was recorded');
+        setTitle('')
+        setContent('')
+        setDate('')
     }).catch(error=>{
         console.log(error);
+        setError('Task couldnt register ')
     })
+    console.log(data)
   }
 
    
@@ -38,6 +47,14 @@ function TaskForm(){
                 </div>
                 <div className="row">
                     <form onSubmit={postHandler} className={styles.Form}>
+                        {message && 
+                        <div className={styles.Success}>
+                            {message}
+                        </div> }
+                        {error && 
+                        <div className={styles.Failed}>
+                            {error}
+                        </div>}
                         <Form.Group id="title" className="d-flex justify-content-center flex-column text-center">
                             <label>Task Title</label>
                             <input className={styles.Input} type="text"  required placeholder="Title" value={[title]} onChange={(e)=> setTitle(e.target.value)}/>
@@ -57,7 +74,6 @@ function TaskForm(){
                     </form>
                 </div>
             </Container>
-            {/* {this.taskHandler()} */}
             </>
        )
     

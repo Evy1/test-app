@@ -11,6 +11,11 @@
     margin: 5px;
     border: 1px solid green;
 }
+.DoneBtn:disabled{
+    background-color: lightgray;
+    cursor: not-allowed;
+    border: 1px solid lightgray;
+}
 .DeleteBtn{
     color: white;
     background-color: red;

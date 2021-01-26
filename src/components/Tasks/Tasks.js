@@ -1,13 +1,14 @@
-import React,{Component, useState, useEffect} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Card, Container} from 'react-bootstrap';
 import styles from './Tasks.module.css';
 import {useAuth} from '../../context/AuthContext'
-import results from '../results'
+import results from '../results';
+import Buttons from '../Buttons/Buttons';
+import firebase from '../../firebase'
  function Tasks(){
      const [items, setItems] = useState([]);
-     const {currentUser} = useAuth()
-
-
+     const {currentUser} = useAuth();
+  
     useEffect(()=>{
         results.get('/task.json').then(response=>{
             // console.log(response.data)
@@ -19,32 +20,9 @@ import results from '../results'
                     }
                     )
                 }
-
-                setItems(fetchedResults)
+            setItems(fetchedResults)
         })
-        
-     },[])
-    const itemsss = items.map(result=>(
-        <div className="col-12 col-md-4" key={result.id}>
-            <Card className={styles.Card} >
-                <Card.Body>
-                    <div>
-                        {result.date}
-                    </div>
-                    <h2 className={styles.TaskTitle}>{result.title}</h2>
-                    <div>
-                        <p>{result.content}</p>
-                    </div>
-                
-                    <div className="d-flex">
-                        <button className={styles.DoneBtn}>Done</button>
-                        <button className={styles.DeleteBtn}>Delete</button>
-                        <button className={styles.EditBtn}>Edit</button>
-                    </div>
-                </Card.Body>
-            </Card>
-    </div>
-    ))
+     },[items])
 
         return (
             <Container>
@@ -61,11 +39,12 @@ import results from '../results'
                             <div>
                                 <p>{result.content}</p>
                             </div>
-                           
                             <div className="d-flex">
-                                <button className={styles.DoneBtn}>Done</button>
-                                <button className={styles.DeleteBtn}>Delete</button>
-                                <button className={styles.EditBtn}>Edit</button>
+                                <Buttons  click={ () => firebase.database().ref('task/' + result.id).update({status: 'done'}).then(setItems(items))} 
+                                class={styles.DoneBtn} disable={result.status === "done"}>Done</Buttons>
+                                <Buttons  click={ () => firebase.database().ref('task/' + result.id).remove().then(setItems(items))} 
+                                class={styles.DeleteBtn}>Delete</Buttons>
+                                <Buttons  class={styles.EditBtn}>Edit</Buttons>
                             </div>
                         </Card.Body>
                     </Card>
