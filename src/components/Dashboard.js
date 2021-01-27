@@ -24,6 +24,7 @@ export default function Dashboard() {
             <div className={styles.Header}>
                 <Navigation/>
                 <Button className={styles.Link} variant="link" onClick={handleLogout}>Log Out</Button>
+                {error}
             </div>
         </>
     )

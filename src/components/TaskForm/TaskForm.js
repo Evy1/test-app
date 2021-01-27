@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom';
 import Dashboard from '../Dashboard';
 import styles from './TaskForm.module.css';
 import {useAuth} from '../../context/AuthContext';
-import firebase from '../../firebase'
 
 function TaskForm(){
 
@@ -31,14 +30,10 @@ function TaskForm(){
         setContent('')
         setDate('')
     }).catch(error=>{
-        console.log(error);
         setError('Task couldnt register ')
     })
-    console.log(data)
   }
-
-   
-       return(
+    return(
             <>
             <Dashboard/>
             <Container>

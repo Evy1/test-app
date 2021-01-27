@@ -3,7 +3,6 @@ import Singup from "./Singup";
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "../context/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Dashboard from "./Dashboard";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
@@ -15,7 +14,6 @@ function App() {
   return (
     <Container fluid 
       className="p-0"
-      // style={{ minHeight: "100vh" }}
     >
       <div className="w-100" style={{ minWidth: "300px" }}>
         <Router>

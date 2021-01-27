@@ -34,11 +34,9 @@ export default function Login() {
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
-                            {/* <Form.Label>Email</Form.Label> */}
                             <Form.Control className={style.Input} type="email" ref={emailRef} required placeholder="E-mail"/>
                         </Form.Group>
                         <Form.Group id="password">
-                            {/* <Form.Label>Password</Form.Label> */}
                             <Form.Control className={style.Input} type="password" ref={passwordRef} required placeholder="Password"/>
                         </Form.Group>
                         <div className={style.Wrapper}>
