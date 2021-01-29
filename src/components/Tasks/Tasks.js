@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Card, Container } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Card, Container, Modal, Button } from "react-bootstrap";
 import styles from "./Tasks.module.css";
 import { useAuth } from "../../context/AuthContext";
-// import results from "../results";
 import Buttons from "../Buttons/Buttons";
 import firebase from "../../firebase";
 import Spinner from "../Spiner/Spiner";
@@ -11,39 +10,29 @@ function Tasks() {
   const [items, setItems] = useState([]);
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
-    const unsubscribe = firebase.database().ref("task").on("value", (snapshot) => {
+    const unsubscribe = firebase
+      .database()
+      .ref("task")
+      .on("value", (snapshot) => {
         const fetchedResults = [];
-        if(snapshot){
-            snapshot.forEach(snap => {
-                fetchedResults.push({
-                    ...snap.val(),
-                    id: snap.key,
-                })
-            })
-            setItems(fetchedResults);
-            setLoading(false);
-        }else{
-            return;
+        if (snapshot) {
+          snapshot.forEach((snap) => {
+            fetchedResults.push({
+              ...snap.val(),
+              id: snap.key,
+            });
+          });
+          setItems(fetchedResults);
+          setLoading(false);
+        } else {
+          return;
         }
-    })
-    // const abortController = new AbortController();
-    // const signal = abortController.signal;
-    // results.get("/task.json", { signal: signal }).then((response) => {
-    //   const fetchedResults = [];
-    //   for (let key in response.data) {
-    //     fetchedResults.unshift({
-    //       ...response.data[key],
-    //       id: key,
-    //     });
-    //   }
-    //   setItems(fetchedResults);
-    //   setLoading(false);
-    // });
-    // return function cleanUp() {
-    //   abortController.abort();
-    // };
+      });
     return unsubscribe;
   }, []);
 
@@ -86,10 +75,26 @@ function Tasks() {
                       >
                         Delete
                       </Buttons>
-                      <Buttons class={styles.EditBtn}>Edit</Buttons>
+                      <Buttons class={styles.EditBtn} click={handleShow}>
+                        Edit
+                      </Buttons>
                     </div>
                   </Card.Body>
                 </Card>
+                <Modal show={show} onHide={handleClose} key={result.id}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>{result.content}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>{result.content}</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                      Save Changes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             )
         )}
