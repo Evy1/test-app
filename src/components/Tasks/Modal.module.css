@@ -1,0 +1,26 @@
+.Header{
+    background-color: burlywood !important;
+}
+.Title{
+    color: white;
+}
+.Input{
+    border: 1px solid burlywood !important;
+    padding: 10px;
+}
+.Button{
+    margin-top: 20px;
+    background-color: #3498DB;
+}
+.Button:disabled{
+    cursor: not-allowed;
+}
+.Body{
+    background-color: antiquewhite;
+}
+.CancelBtn{
+    margin-top: 20px;
+}
+.Label{
+    margin-top: 10px;
+}
