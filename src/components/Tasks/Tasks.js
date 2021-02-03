@@ -6,6 +6,7 @@ import Buttons from "../Buttons/Buttons";
 import firebase from "../../firebase";
 import Spinner from "../Spiner/Spiner";
 import classes from "./Modal.module.css";
+import { useForm } from '../../utils/useForm'
 
 function Tasks() {
   const [items, setItems] = useState([]);
@@ -16,8 +17,21 @@ function Tasks() {
   const [content, setContent] = useState([]);
   const [modal, setModal] = useState([]);
   const [date, setDate] = useState();
-  const [touched, setTouched] = useState(false)
-  const buttonRef = useRef(null);
+  const [touched, setTouched] = useState(false);
+  // const form = useForm({
+  //   values: {},
+  //   onSubmit: (values, props) => {
+  //     // firebase
+  //     //   .database()
+  //     //   .ref("task/" + id)
+  //     //   .update({ title: value, content: content, date: date });
+  //   }
+  // });
+
+  // form.handleSubmit();
+  // form.setValue(name, value);
+  // form.getValue(name);
+
   const handleClose = () => {
     setShow(false);
     setTouched(false)
@@ -124,7 +138,6 @@ function Tasks() {
                       </Buttons>
                       <Buttons
                         class={styles.EditBtn}
-                        ref={buttonRef.current}
                         click={() => handleShow(result)}
                       >
                         Edit
@@ -149,9 +162,10 @@ function Tasks() {
                         type="text"
                         required
                         placeholder="Enter the new title..."
+                        // value={form.getValue('title')}
                         value={value}
-                        ref={buttonRef.current}
                         onChange={titleHandler}
+                        // onChange={e => form.setValue('title', e.target.value)}
                       ></input>
                       <label className={classes.Label}>Task Content</label>
                       <textarea
@@ -190,7 +204,7 @@ function Tasks() {
                   <Modal.Footer className={classes.Body}></Modal.Footer>
                 </Modal>
               </div>
-            )
+            ) 
         )}
       </div>
     );
