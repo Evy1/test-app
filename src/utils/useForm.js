@@ -2,7 +2,7 @@ import {useState} from 'react'
 
 const useForm = (initialState) => {
   const [state, setState] = useState(initialState);
-  const [touched, setTouched] = useState(false)
+  const [touched, setTouched] = useState(false);
 //   const handleSubmit = e =>{
 //     e.preventDefault();
 //   }

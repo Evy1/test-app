@@ -70,6 +70,7 @@ function Tasks() {
   }, []);
 
 
+
   //edit method
   //id passed from modal id
   const editTaskHandler = (id) => {
@@ -101,6 +102,7 @@ function Tasks() {
     const db = firebase.database().ref("task/" + id);
     db.remove();
   }
+
 
   let info = <Spinner />;
   if (!loading) {
@@ -209,6 +211,11 @@ function Tasks() {
       </div>
     );
   }
-  return <Container>{info}</Container>;
+  return <Container>
+          <h1 className="text-center mt-4">Your Tasks...</h1>
+            {info}
+          </Container>;
 }
 export default Tasks;
+
+
